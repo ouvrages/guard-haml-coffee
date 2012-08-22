@@ -16,5 +16,6 @@ Gem::Specification.new do |gem|
   gem.version       = Guard::Haml::Coffee::VERSION
 
   gem.add_dependency('guard')
-  gem.add_dependency('haml_coffee_assets')
+  gem.add_dependency('execjs')
+  gem.add_dependency('coffee-script')
 end
