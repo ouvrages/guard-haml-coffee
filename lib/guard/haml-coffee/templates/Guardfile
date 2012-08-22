@@ -1,0 +1,3 @@
+guard 'haml-coffee' do
+  watch(/^.+(\.js\.hamlc)\Z/)
+end
