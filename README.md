@@ -18,7 +18,13 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+As a prerequisite, you must have [Guard](https://github.com/guard/guard) installed and initialized already.
+
+Add the haml-coffee instructions to the `Guardfile`:
+    
+    $ bundle exec guard init haml-coffee
+
+Restart guard if it's running and that's it.
 
 ## Contributing
 
