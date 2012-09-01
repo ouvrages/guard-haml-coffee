@@ -1,6 +1,6 @@
 # Guard::Haml::Coffee
 
-TODO: Write a gem description
+Guard gem to generate Javascript code from [Haml Coffee](https://github.com/netzpirat/haml-coffee) templates. Inspired by [haml_coffee_assets](https://github.com/netzpirat/haml_coffee_assets).
 
 ## Installation
 

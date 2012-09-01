@@ -4,7 +4,7 @@ require File.expand_path('../lib/guard/haml-coffee/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Ouvrages"]
   gem.email         = ["contact@ouvrages-web.fr"]
-  gem.description   = %q{Compiles a HamlCoffee .js.hamlc file to a .js javascript template}
+  gem.description   = %q{Compiles HamlCoffee templates to javascript}
   gem.summary       = %q{Guard gem for HamlCoffee}
   gem.homepage      = "https://github.com/ouvrages/guard-haml-coffee"
 
