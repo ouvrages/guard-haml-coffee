@@ -50,6 +50,8 @@ module Guard
     end
 
     def run_on_changes(paths)
+      start unless @runtime
+
       paths.each do |path|
         basename = File.basename(path, '.js.hamlc')
         output_file = get_output(path)
