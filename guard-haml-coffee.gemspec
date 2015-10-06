@@ -15,7 +15,9 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Guard::Haml::Coffee::VERSION
 
-  gem.add_dependency('guard')
+  gem.add_dependency('guard-compat', '~> 1.2')
   gem.add_dependency('execjs')
   gem.add_dependency('coffee-script')
+
+  gem.add_development_dependency 'bundler', '~> 1.10'
 end
