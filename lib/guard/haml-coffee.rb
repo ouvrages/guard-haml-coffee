@@ -67,6 +67,11 @@ module Guard
       process(files)
     end
 
+    def self.template(plugin_location)
+      path = 'lib/guard/haml-coffee/templates/Guardfile'
+      (Pathname(plugin_location) + path).read
+    end
+
     private
 
     def process(paths)
