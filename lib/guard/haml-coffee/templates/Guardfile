@@ -1,3 +1,10 @@
-guard 'haml-coffee' do
+haml_coffee_options = {
+  # input: 'foo/bar', # strips 'foo/bar/' from output file name
+  # output: 'public/baz', # output dir
+  #
+  # Example (given above options): src/foo/bar/a.js.hamlc -> public/baz/a.js
+}
+
+guard 'haml-coffee', haml_coffee_options do
   watch(/^.+(\.js\.hamlc)\Z/)
 end
