@@ -1,25 +1,34 @@
 # -*- encoding: utf-8 -*-
-require 'guard'
-require 'guard/guard'
-require 'guard/watcher'
+
+require 'guard/compat/plugin'
+
 require 'execjs'
 require 'coffee-script'
 
 module Guard
-  class HamlCoffee < Guard
-    
-    def initialize(watchers=[], options={})
+  class HamlCoffee < Plugin
+    VALID_GUARD_OPTIONS = %i(watchers group callbacks)
+    VALID_OPTIONS = %i(object)
+
+    def initialize(options = {})
+      valid_options = VALID_OPTIONS + VALID_GUARD_OPTIONS
+      options.keys.each do |key|
+        unless valid_options.include?(key)
+          fail ArgumentError, "Unknown option: #{key.inspect}"
+        end
+      end
+
       @options = {
-        :notifications => true
+        notifications: true
       }.merge(options)
-      super(watchers, @options)
+      super(@options)
     end
 
     def start
-      ::Guard::UI.info("Guard::HamlCoffee has started watching your files",{})
-      source = File.read(::CoffeeScript::Source.path) + ";"
-      source += File.read(File.expand_path('../haml-coffee/hamlcoffee.js', __FILE__)) + ";"
-      source += File.read(File.expand_path('../haml-coffee/hamlcoffee_compiler.js', __FILE__))
+      Compat::UI.info('Guard::HamlCoffee has started watching your files', {})
+      source = File.read(::CoffeeScript::Source.path) + ';'
+      source += load_config('../haml-coffee/hamlcoffee.js') + ';'
+      source += load_config('../haml-coffee/hamlcoffee_compiler.js')
       @runtime = ExecJS.compile(source)
     end
 
@@ -46,10 +55,26 @@ module Guard
     end
 
     def run_all
-      run_on_changes(Watcher.match_files(self, Dir.glob(File.join('**', '*.*'))))
+      all_files = Dir.glob(File.join('**', '*.*'))
+      process(Compat.matching_files(self, all_files))
     end
 
-    def run_on_changes(paths)
+    def run_on_modifications(files)
+      process(files)
+    end
+
+    def run_on_changes(files)
+      process(files)
+    end
+
+    def self.template(plugin_location)
+      path = 'lib/guard/haml-coffee/templates/Guardfile'
+      (Pathname(plugin_location) + path).read
+    end
+
+    private
+
+    def process(paths)
       paths.each do |path|
         basename = File.basename(path, '.js.hamlc')
         output_file = get_output(path)
@@ -84,6 +109,10 @@ module Guard
     rescue StandardError => error
       ::Guard::UI.error "Guard Haml Coffee Error: " + error.message
       throw :task_has_failed
+    end
+
+    def load_config(file)
+      File.read(File.expand_path(file, __FILE__))
     end
   end
 end
