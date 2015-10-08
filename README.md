@@ -1,3 +1,5 @@
+#### NOTE: SUPPORT MOVED TO: https://github.com/guard/guard-haml-coffee
+
 # Guard::Haml::Coffee
 
 Guard gem to generate Javascript code from [Haml Coffee](https://github.com/netzpirat/haml-coffee) templates. Inspired by [haml_coffee_assets](https://github.com/netzpirat/haml_coffee_assets).
